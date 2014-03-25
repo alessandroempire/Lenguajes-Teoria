@@ -3,31 +3,18 @@
 data Proc = Proc (String, Integer, [Proc])
     deriving (Show)
    
-name :: Proc -> String
-name (Proc (name,_,_)) = name
+takeName :: Proc -> String
+takeName (Proc (name,_,_)) = name
 
 completo :: [Proc] -> Bool
 completo [] = True
-{-
-completo ps = foldl (aux []) True ps
-    where aux listP (Proc (name,_,[])) = 
-            
-          aux listP (Proc (name,_,ls))  
--}
-
 completo ps = completoAux ps []
     where completoAux :: [Proc] -> [String] -> Bool
           completoAux [] xs                      = True 
-          completoAux ((Proc (name,_,[])):ps) xs = completoAux ps (name:xs)
-          completoAux ((Proc (name,_,ls)):ps) xs = True
---              if and (map (flip (elem) xs) (map name ls)) then completoAux ps (name:xs)
-  --            else False
-
-eval :: Proc -> [String] -> Bool
-eval (Proc (name,_,ls)) xs = 
-    if and (map (flip (elem) xs) (map name ls)) then True
-        else False
-
+--          completoAux ((Proc (name,_,[])):ps) xs = completoAux ps (name:xs)
+          completoAux ((Proc (name,_,ls)):ps) xs = 
+              if and (map (flip (elem) xs) (map takeName ls)) then completoAux ps (name:xs)
+              else False
 
 completoFR :: [Proc] -> Bool
 completoFR = undefined
