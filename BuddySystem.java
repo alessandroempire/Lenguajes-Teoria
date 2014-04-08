@@ -59,7 +59,7 @@ public class BuddySystem {
         if (cap > Capacidad)
             return -1;
         
-        int pos = log2(cap)-1;
+        int pos = log2(cap);
         
         for (; pos < Buddies.length;){
             if (Buddies[pos] == null)
@@ -90,14 +90,14 @@ public class BuddySystem {
         int mem = t.Memory();
         int i = log2(mem);
         if (mem <= Math.pow(2,i)){
-            if (Buddies[i-1] == null)
-                Buddies[i-1] = new ArrayList();
-            Buddies[i-1].add(t);
-        }
-        else {
             if (Buddies[i] == null)
                 Buddies[i] = new ArrayList();
             Buddies[i].add(t);
+        }
+        else {
+            if (Buddies[i+1] == null)
+                Buddies[i+1] = new ArrayList();
+            Buddies[i+1].add(t);
         }
     }
     
